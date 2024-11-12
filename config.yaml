@@ -1,0 +1,7 @@
+APIKey:
+  GEMINI_PUBLIC: AIzaS.....STUFF-HERE..........943asJDA  
+  VERTEX_AI:
+    PROJECT_ID: your_project_id
+    # https://cloud.google.com/vertex-ai/generative-ai/docs/quotas
+    NOPE_REGION: asia-southeast1  # Low quota for Gemini
+    REGION: us-central1
