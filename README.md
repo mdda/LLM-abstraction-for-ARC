@@ -6,7 +6,7 @@ This repo is a copy of the relevant code for the dataset paper ["Capturing Spark
 
 ## Assets made available (Apache 2.0 license)
 
-* The `arc_mdda` module is the ARC-related code in modularised form, mostly built by first testing within notebook.
+* The `arc_mdda` module is ARC-related code in modularised form, mostly built by first testing within notebooks
 * The Gemini-Flash-002 generated 'Sparks of Abstraction' dataset is downloadable via [this link](https://drive.google.com/file/d/1o-QT_erDAT5Ns6WqWosr8sqy6a_HLcpX/view?usp=sharing)
 * The instructions below include the incorporation of the related repo [`arc-dsl-llm`](https://github.com/mdda/arc-dsl-llm)
 
