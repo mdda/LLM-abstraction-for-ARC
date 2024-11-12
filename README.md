@@ -1,6 +1,6 @@
 # LLM-abstraction-for-ARC
 
-This repo is a copy of the relevant code for the dataset paper ["Capturing Sparks of Abstraction for the ARC Challenge"](TODO).
+This repo is a copy of the relevant code for the dataset paper ["Capturing Sparks of Abstraction for the ARC Challenge"](https://drive.google.com/file/d/1Fbn2BkB0OHp8tsvkAPTxo5_ahuzhv78O/view?usp=sharing).
 
 * Quick-start : Have a look at the Jupyter Notebooks (pre-rendered) in `./notebooks`
 
