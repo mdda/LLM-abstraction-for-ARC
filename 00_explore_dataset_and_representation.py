@@ -36,7 +36,7 @@ len(data_train), sorted(data_train.keys())[0::70]
 
 # ### Basic visualisation
 
-task_hash = '00d62c1b'  # 3345333e<< 00d62c1b 27a28665
+task_hash = '228f6490'  # 3345333e<< 00d62c1b 27a28665
 task = data_train[task_hash]
 #task;
 arc_mdda.plot_2d_grid(task, plt);

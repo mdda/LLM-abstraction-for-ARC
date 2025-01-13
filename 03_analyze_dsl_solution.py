@@ -170,6 +170,7 @@ len(O_dict), O_dict['O'] == O   # YAY - after converting original JSON [[]] data
 
 color_map_preamble
 
+
 # +
 #solver_globals['as_objects'], #as_objects
 #O_dict['O']
@@ -177,35 +178,48 @@ color_map_preamble
 
 # ### Run exec() over all training examples - check on COLOR_ permutation
 
+# +
+def test_solver(task_hash, definition, remap_colours=False, run_train=False, run_test=True):
+  def_lines = arc_mdda.dsl_manipulation.analyse_definition(definition, dsl_functions, constants, dsl_functionals)
+
+  if remap_colours:  # REMAP THE COLORS!
+    grid_to_tuples_fn = grid_to_tuples_remapped
+    color_constants=color_constants_remap
+  else:  
+    grid_to_tuples_fn = grid_to_tuples
+    color_constants = arc_mdda.dsl_manipulation.color_constants_base
+  solver_py = arc_mdda.dsl_manipulation.create_virtual_solver(def_lines, color_constants=color_constants)
+  
+  #exec(import_preamble + color_map_preamble + solver_new, solver_globals) # Defines solver_virtual(I)
+  #O_dict = solver_globals['solver_virtual'](I)
+  solver_function = arc_mdda.dsl_manipulation.get_solver_function(solver_py, arc_dsl)
+
+  run_arr = [] + (['train'] if run_train else []) + (['test'] if run_test else []) 
+  for run_set in run_arr:
+    run_task_data = data_train[task_hash][run_set]
+    for idx in range(len(run_task_data)):
+      I = grid_to_tuples_fn( run_task_data[idx]['input'] )
+      O = grid_to_tuples_fn( run_task_data[idx]['output'] )
+    
+      O_dict = solver_function(I)
+    
+      success = (O_dict['O'] == O)
+      if not success:
+        print(f"{run_set}[{idx}] {success=}")
+        return O_dict
+      #if not success:
+      #  print(task_hash, O_dict['O'] == O, len(solver_new))
+
+  return O_dict
+
 # Let's test all the solvers now...
 if False: 
-  for k, definition in sorted(definitions.items()):
-    task_hash = k.replace('solve_', '')
-    
-    def_lines = arc_mdda.dsl_manipulation.analyse_definition(definition, dsl_functions, constants, dsl_functionals)
-  
-    if True:
-      grid_to_tuples_fn = grid_to_tuples
-      color_constants = arc_mdda.dsl_manipulation.color_constants_base
-    else:  # REMAP THE COLORS!
-      grid_to_tuples_fn = grid_to_tuples_remapped
-      color_constants=color_constants_remap
-    solver_py = arc_mdda.dsl_manipulation.create_virtual_solver(def_lines, color_constants=color_constants)
-    
-    task_test_data = data_train[task_hash]['test']
-    I = grid_to_tuples_fn( task_test_data[0]['input'] )
-    O = grid_to_tuples_fn( task_test_data[0]['output'] )
-
-    #exec(import_preamble + color_map_preamble + solver_new, solver_globals) # Defines solver_virtual(I)
-    #O_dict = solver_globals['solver_virtual'](I)
-    solver_function = arc_mdda.dsl_manipulation.get_solver_function(solver_py, arc_dsl)
-    O_dict = solver_function(I)
+  for task_solve, definition in sorted(definitions.items()):
+    task_hash = task_solve.replace('solve_', '')
+    O_dict = test_solver(task_hash, definition, remap_colours=False)
     
     #if task_hash=='995c5fa3':
     #  break
-    success = (O_dict['O'] == O)
-    if not success:
-      print(task_hash, O_dict['O'] == O, len(solver_new))
       
     for k,v in O_dict.items():
       t=arc_mdda.dsl_manipulation.detect_type(v)
@@ -215,6 +229,11 @@ if False:
         #success=False
     if not success: break
   print("FINISHED!")
+# -
+
+#task_hash='228f6490'
+task_hash='f8c80d96'  # Fixed https://github.com/mdda/arc-dsl-llm/commit/cc99d2a
+O_dict=test_solver(task_hash, definitions[f'solve_{task_hash}'], remap_colours=False, run_train=True, run_test=True)
 
 # ### Examine the I/O and intermediate variables
 
@@ -226,7 +245,8 @@ O_dict.keys()
 #from arc_dsl.arc_types import *
 # NB: Now the COLOR values are all >1000, so can detect the type based on that...
 
-color_tokens='x r b y e q c z p u w q'.split(' ')
+#color_tokens='x r b y e q c z p u w q'.split(' ')
+color_tokens='. r b y e q c z p u w q'.split(' ')
 
 #detect_type(O_dict['x1'], )
 for k,v in O_dict.items():

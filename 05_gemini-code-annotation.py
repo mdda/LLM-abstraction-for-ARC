@@ -163,7 +163,7 @@ for task_hash in get_filtered_task_hashes():
     O = grid_to_tuples_fn( task_data[train_idx]['output'] )
     
     O_dict = solver_function(I)
-    if task_hash not in "|228f6490|f8c80d96|":   # Two problem found (in second half of dataset...)
+    if task_hash not in "||":   # If problems found 
       assert( O == O_dict['O'] ) # Should work if the DSL solution is valid
 
     # Get gemini prompt for annotating solution code
@@ -279,7 +279,7 @@ for task_hash in get_filtered_task_hashes():
 # 16 invalid out of 93 processed // 12 .. 7 .. 5 .. 4 .. 3 .. 3 .. 2 .. 2 
 f"FINISHED : {len(invalid_filenames)} invalid out of {count_processed} processed"
 # -
-if False:  # Enable this specifically...
+if True:  # Enable this specifically...
   print(f"Deleting {len(invalid_filenames)} files")
   for log_llm_filename in invalid_filenames:
     os.unlink(log_llm_filename)
