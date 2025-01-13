@@ -1,6 +1,7 @@
 # LLM-abstraction-for-ARC
 
-This repo is a copy of the relevant code for the dataset paper ["Capturing Sparks of Abstraction for the ARC Challenge"](https://drive.google.com/file/d/1Fbn2BkB0OHp8tsvkAPTxo5_ahuzhv78O/view?usp=sharing).
+This repo is a copy of the relevant code for the dataset paper 
+["Capturing Sparks of Abstraction for the ARC Challenge"](https://arxiv.org/abs/2411.11206).
 
 * Quick-start : Have a look at the Jupyter Notebooks (pre-rendered) in `./notebooks`
 
@@ -65,7 +66,19 @@ jupytext --set-formats cache-notebooks//ipynb,py XYZ.py
 
 ## Citing this work
 
-* **TBA** - once arXiv registers a paper submission that includes commentary on this repo
+If you find this helpful in your research, please consider citing: 
+
+```bibtex
+@misc{andrews2024capturingsparksabstractionarc,
+      title={Capturing Sparks of Abstraction for the ARC Challenge}, 
+      author={Martin Andrews},
+      year={2024},
+      eprint={2411.11206},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2411.11206}, 
+}
+```
 
 
 ### Acknowledgements
